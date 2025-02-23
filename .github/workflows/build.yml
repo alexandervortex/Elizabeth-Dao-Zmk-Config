@@ -42,7 +42,7 @@ jobs:
             ARTIFACT_NAME="${{ matrix.board }}-zmk"
           fi
           echo "extra-cmake-args=${EXTRA_CMAKE_ARGS}" >> "$GITHUB_OUTPUT"
-          echo "artifact-name=${ARTIFACT_NAME}-${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+          echo "artifact-name=${ARTIFACT_NAME}-${{ github.run_id }}-${{ matrix.board }}" >> "$GITHUB_OUTPUT"
           echo "display-name=${DISPLAY_NAME}" >> "$GITHUB_OUTPUT"
       - name: Checkout
         uses: actions/checkout@v4
@@ -84,5 +84,5 @@ jobs:
       - name: Archive (${{ steps.variables.outputs.display-name }})
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{ github.run_id }}
+          name: firmware-${{ github.run_id }}-${{ matrix.board }}
           path: build/artifacts
